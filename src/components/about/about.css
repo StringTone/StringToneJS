@@ -1,0 +1,31 @@
+.api-dialog .api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(4),
+.api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(4),
+.api-dialog .api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(3),
+.api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(3),
+.api-dialog .api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog .api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog-pagination:nth-of-type(5):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog .api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(3),
+.api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(3),
+.api-dialog .api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog .api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog-pagination:nth-of-type(4):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog .api-dialog-pagination:nth-of-type(3):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog-pagination:nth-of-type(3):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(2),
+.api-dialog .api-dialog-pagination:nth-of-type(3):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog-pagination:nth-of-type(3):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog .api-dialog-pagination:nth-of-type(2):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog-pagination:nth-of-type(2):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog .api-dialog-pagination:nth-of-type(1):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(0),
+.api-dialog-pagination:nth-of-type(1):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(0),
+.api-dialog .api-dialog-pagination:nth-of-type(1):checked ~ .api-dialog-header .api-dialog-header-indicator:nth-of-type(1),
+.api-dialog-pagination:nth-of-type(1):checked ~ .api-dialog-header .api-dialog .api-dialog-header-indicator:nth-of-type(1) {
+  background: #a78e71;
+  user-select: none;
+  cursor: pointer;
+  color: transparent;
+  transition: 0.33s padding linear 0.3s, 0.25s color 0.2s, 0.333s max-width 0.3s, 0.5s background 0.75s, 0.5s box-shadow 0.25s;
+  pointer-events: all;
+}
