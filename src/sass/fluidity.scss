@@ -1,3 +1,4 @@
+@use "sass:list";
 $min_width    : 480px;
 $max_width    : 1024px;
 $min_font     : 12px;
@@ -5,11 +6,50 @@ $max_font     : 17px;
 
 @function strip-unit($v) { @return calc($v / (($v * 0 + 1px))); }
 
-@function scale($property, $max-size, $min-width:$min-width, $max-width:$max-width) {
-    @return fluid-type($property, $min_width, $max_width, $min_font, $max_font);
+@function scaled($min_size, $max_size) {
+    $calcd:calc-interpolation($min_width, $min_size, $max_width, $max_size);
+    @return clamp($min_size, $calcd, $max_size);
 }
 
-@mixin fluid-type($properties, $min-screen, $max-screen, $min-value, $max-value, $stripped:false) {
+@function descaled($max_size, $min_size) {
+  $calcd:calc-interpolation($min_width, $min_size, $max_width, $max_size);
+  $calcd:calc(($max_size - $calcd) + $min_size);
+  @return clamp($min_size, $calcd, $max_size);
+}
+
+// conditionally
+// Params: $properties  - a list of properties to be applied 
+//         $breaksizes  - a list of breakpoint sizes
+//         $underValues - a list of values to be applied under the breakpoint sizes
+//         $overValues  - a list of values to be applied over the breakpoint sizes
+// Note:   The number of properties, breakpoints, underValues, and overValues must be the same.
+// Useage: @include conditionally(margin opacity, 800px 480px, 5px 1, 20px 0);
+// Result: margin: 5px; 
+//         opacity: 1;
+//         @media screen and (min-width: 800px) { 
+//            margin: 20px; 
+//         }
+//         @media screen and (min-width: 480px) { 
+//            opacity: 0;
+//         }
+@mixin conditionally($properties, $breaksizes, $underValues, $overValues){
+  @if(length($properties) != length($breaksizes) or length($properties) != length($underValues) or length($properties) != length($overValues)) {
+    @error "The number of properties, breakpoints, underValues, and overValues must be the same.";
+  }
+
+  @for $i from 1 through length($properties) {
+    #{nth($property, $i)}: #{nth($underValues, $i)};
+    
+    @media screen and (min-width: #{nth($breaksizes, $i)}) {
+      #{nth($property, $i)}: #{nth($overValues, $i)};
+    }
+  }
+  @each $breaksize in $breaksizes {
+    
+  }
+}
+
+@mixin fluid-type($properties, $min-value, $max-value, $stripped:false) {
   & {
     @each $property in $properties {
       @if($stripped) {
@@ -19,17 +59,17 @@ $max_font     : 17px;
       }
     }
     
-    @media screen and (min-width: $min-screen) {
+    @media screen and (min-width: $min_width) {
       @each $property in $properties {
         @if($stripped) {
-          #{$property}: strip-unit(calc-interpolation($min-screen, $min-value, $max-screen, $max-value));
+          #{$property}: strip-unit(calc-interpolation($min_width, $min-value, $max_width, $max-value));
         } @else {
-          #{$property}:calc-interpolation($min-screen, $min-value, $max-screen, $max-value); 
+          #{$property}:calc-interpolation($min_width, $min-value, $max_width, $max-value); 
         }
       }
     }
     
-    @media screen and (min-width: $max-screen) {
+    @media screen and (min-width: $max_width) {
       @each $property in $properties {
         @if($stripped) {
           #{$property}: strip-unit($max-value);
@@ -43,9 +83,9 @@ $max_font     : 17px;
 
 // Requires the calc-interpolation function which can also be used independently
 
-@function calc-interpolation($min-screen, $min-value, $max-screen, $max-value) {
-  $a: calc(($max-value - $min-value) / ($max-screen - $min-screen));
-  $b: $min-value - $a * $min-screen; 
+@function calc-interpolation($min_width, $min-value, $max_width, $max-value) {
+  $a: calc(($max-value - $min-value) / ($max_width - $min_width));
+  $b: $min-value - $a * $min_width; 
   
   $sign: "+";
   @if ($b < 0) {

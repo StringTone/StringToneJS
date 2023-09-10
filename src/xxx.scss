@@ -1,0 +1,58 @@
+$min_width    : 480px;
+$max_width    : 1024px;
+$min_font     : 12px;
+$max_font     : 17px;
+
+@function strip-unit($v) { @return calc($v / (($v * 0 + 1px))); }
+
+@function scaled($min_size, $max_size) {
+    
+    $calcd:calc-interpolation($min_width, $min_size, $max_width, $max_size);
+  @return $calcd;
+}
+
+@mixin fluid-type($properties, $min-screen, $max-screen, $min-value, $max-value, $stripped:false) {
+  & {
+    @each $property in $properties {
+      @if($stripped) {
+        #{$property}: strip-unit($min-value);
+      } @else {
+        #{$property}: $min-value;
+      }
+    }
+    
+    @media screen and (min-width: $min-screen) {
+      @each $property in $properties {
+        @if($stripped) {
+          #{$property}: strip-unit(calc-interpolation($min-screen, $min-value, $max-screen, $max-value));
+        } @else {
+          #{$property}:calc-interpolation($min-screen, $min-value, $max-screen, $max-value); 
+        }
+      }
+    }
+    
+    @media screen and (min-width: $max-screen) {
+      @each $property in $properties {
+        @if($stripped) {
+          #{$property}: strip-unit($max-value);
+        } @else {
+          #{$property}: $max-value;
+        }
+      }
+    }
+  }
+}
+
+// Requires the calc-interpolation function which can also be used independently
+
+@function calc-interpolation($min-screen, $min-value, $max-screen, $max-value) {
+  $a: calc(($max-value - $min-value) / ($max-screen - $min-screen));
+  $b: $min-value - $a * $min-screen; 
+  
+  $sign: "+";
+  @if ($b < 0) {
+    $sign: "-";
+    $b: abs($b);
+  }
+  @return calc(#{$a*100}vw #{$sign} #{$b});
+}

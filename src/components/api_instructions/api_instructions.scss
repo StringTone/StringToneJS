@@ -1,87 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Pacifico&display=swap');
+// @import 'fluidity';
 $min_width    : 480px;
 $max_width    : 1024px;
 $min_font     : 12px;
 $max_font     : 17px;
-
-@import url('/sass/fluidity.scss');
-
-@function strip-unit($v) { @return calc($v / (($v * 0 + 1px))); }
-@mixin fluid-type($properties, $min-screen, $max-screen, $min-value, $max-value, $stripped:false) {
-    & {
-      @each $property in $properties {
-        @if($stripped) {
-          #{$property}: strip-unit($min-value);
-        } @else {
-          #{$property}: $min-value;
-        }
-        // #{$property}: $min-value;
-      }
-  
-      @media screen and (min-width: $min-screen) {
-        @each $property in $properties {
-            @if($stripped) {
-              #{$property}: strip-unit(calc-interpolation($min-screen, $min-value, $max-screen, $max-value));
-            } @else {
-              #{$property}:calc-interpolation($min-screen, $min-value, $max-screen, $max-value); 
-            }
-        //   #{$property}: calc-interpolation($min-screen, $min-value, $max-screen, $max-value); 
-        }
-      }
-  
-      @media screen and (min-width: $max-screen) {
-        @each $property in $properties {
-            @if($stripped) {
-              #{$property}: strip-unit($max-value);
-            } @else {
-              #{$property}: $max-value;
-            }
-        //   #{$property}: $max-value;
-        }
-      }
-    }
-  }
-  
-  // Requires the calc-interpolation function which can also be used independently
-  
-  @function calc-interpolation($min-screen, $min-value, $max-screen, $max-value) {
-      $a: calc(($max-value - $min-value) / ($max-screen - $min-screen));
-      $b: $min-value - $a * $min-screen; 
-  
-      $sign: "+";
-      @if ($b < 0) {
-          $sign: "-";
-          $b: abs($b);
-      }
-      @return calc(#{$a*100}vw #{$sign} #{$b});
-  }
+@import '../../sass/fluidity.scss';
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Pacifico&display=swap');
 
 :root { 
-    @include fluid-type((font-size), 480px, 1024px, 11px, 15px);
-    @include fluid-type((--header-size), 480px, 1024px, 32px, 40px);
-    @include fluid-type((--scale-factor), 480px, 1024px, 0.65px, 1px, true);
+    @include fluid-type(font-size, 11px, 15px);
+    @include fluid-type(--header-size, 32px, 40px);
+    @include fluid-type(--scale-factor, 0.65px, 1px, true);
 
 }
-// @media (min-width: #{$min_width}) and (max-width: #{$max_width}){
-//   :root { 
-//     font-size: calc( #{$min_font} + (#{$max_font} - #{$min_font}) * ( (100vw - #{$min_width}) / ( #{$max_width} - #{$min_width}) ));
-//   }
-// }
-// @media (min-width: #{$max_width}px){
-//    :root { 
-//      font-size: #{$max_font};
-//    }
-// }
 
 :root { 
-    // font-size      : #{fluid-type($min_font, $max_font, $min_width, $max_width)}; 
     --min-test     : 48px;
     --min-width    : #{$min_width};
     --max-width    : #{$max_width};
     --min-font     : #{$min_font};
     --max-font     : #{$max_font};
-    // --scale-factor : clamp(calc(var(--min-font) / var(--max-font)), calc(1rem / var(--max-font)), 1);
-    
 }
 
 
@@ -209,13 +146,11 @@ html, body {
             min-width      : 325px;
             
             span {
-                @include fluid-type(--size, 480px, 1024px, 23px, 28px);
-
                 display  : inline-block;
                 margin    : 0 -2px 0 -8px;
                 transform : translate(0, 5px);
-                width     : var(--size);
-                height    : var(--size);
+                width     : scaled(23px, 28px);
+                height    : scaled(23px, 28px);
             }
         }
         
@@ -231,7 +166,7 @@ html, body {
             user-select   : none;
         }
         &-indicator {
-            @include fluid-type(--font-size, 480px, 1024px, 14px, 16px);
+            @include fluid-type(--font-size, 14px, 16px);
             display       : inline-block;
             height        : 32px;
             line-height   : 26px;
@@ -282,7 +217,7 @@ html, body {
             transition    : 0.5s all cubic-bezier(.79,-0.56,.69,1.98), 1s opacity, 0s font-size;
             
             h2 {
-                @include fluid-type(--h2-size, 480px, 1024px, 32px, 48px);
+                @include fluid-type(--h2-size, 32px, 48px);
                 margin           : 0;
                 padding          : 0;
                 font-family      : Pacifico;
@@ -316,12 +251,12 @@ html, body {
                 box-shadow       : 0 10px 20px #0008;
                 
                 span.svg.heart-palette {
-                    @include fluid-type(--size, 480px, 1024px, 85px, 130px);
+                    @include fluid-type(--size, 85px, 130px);
                     filter                : drop-shadow(8px 10px 5px #0006);
                     width                 : var(--size);
                     height                : calc(1.15 * var(--size));
                     float                 : right;
-                    margin                : 10px 0px -40px 10px;
+                    margin                : 10px 0 -40px 10px;
                 }
                 
                 strong {
@@ -435,7 +370,7 @@ html, body {
             align-items     : flex-end;
         }
         &-button {
-            @include fluid-type((font-size), 480px, 1024px, 14px, 18px);
+            @include fluid-type(font-size, 14px, 18px);
             margin           : 25px 10px 10px;
             font-weight      : 600;
             padding          : 11px 5px 12px;

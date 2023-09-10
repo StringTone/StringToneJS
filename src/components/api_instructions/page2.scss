@@ -36,16 +36,6 @@ em { font-weight: 500;}
         margin           : 0 1px;
     }
     
-    span {
-        border-radius : 3px;
-        display       : inline-block;
-        padding       : 0 8px 3px;
-        color         : white;
-        text-shadow   : 0 -1px 0 #0008;
-    }
-    
-    .in-content-explanation { margin: 16px auto;}
-    
 }
 .api-dialog-content-section-url {
     display         : block;
@@ -126,6 +116,7 @@ em { font-weight: 500;}
         position:absolute;
         display: block;
         z-index: 5;
+        filter:drop-shadow(0 1px 1px #FFF);
 
         &::after {
             content:'';

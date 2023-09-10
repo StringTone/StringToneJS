@@ -108,9 +108,17 @@ app.get(/^\/(?!api\/)(.*)$/i, async (req, res) => {
     
     if(isDevMode){
         if(/^s?[ca]ss$/i.test(reqFileExt)) {
+            if(/fluid/.test(reqFullPath)) console.log('reqFullPath :', reqFullPath);
+            if(/\/sass\//.test(reqFullPath)) {
+                let mixinPath = path.join(__dirname, 'src/' + reqFullPath);
+                console.log('mixinPath :', mixinPath);
+                res.set('Content-Type', supportedFileTypes['css'].mimeType);
+                let compiledMixin = sass.compile(mixinPath, {style:"expanded"});
+                console.log('compiledMixin :', compiledMixin);
+                return res.sendFile(mixinPath);
+            }
             res.set('Content-Type', supportedFileTypes['css'].mimeType);
             let targetSassPath = path.join(reqPath, reqFileName + '.' + reqFileExt);
-            if(/fluid/.test(reqFullPath))console.log('targetSassPath :', targetSassPath);
             let sassCompilation = sass.compile(targetSassPath, {style:"expanded"});
             if(/fluid/.test(reqFullPath))console.log('sassCompilation :', sassCompilation);
             return res.send(sassCompilation.css);
