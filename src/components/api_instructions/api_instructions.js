@@ -21,9 +21,12 @@ const init = () => {
 
 
     const performPagination = (newPage) => {
+    console.log('newPage :', newPage);
         setTimeout(()=>{
         let totalPages                             = paginationTriggers.length-1
-        let calculatedPage                         = /^[+-]\d*$/.test(newPage) ? Math.min(Math.max((activePage() + (1 * newPage))-1,0),totalPages) : Math.min(Math.max((newPage-1),0),totalPages);
+        let calculatedPage                         = /^[+-]\d*$/.test(newPage) ? Math.min(Math.max((activePage() + (1 * newPage))-1,0),totalPages) : Math.min(Math.max((newPage),0),totalPages);
+        console.log('activePage() :', activePage());
+        console.log('calculatedPage :', calculatedPage);
         paginationTriggers[calculatedPage].checked = true;
         prevButton.disabled                        = (calculatedPage === 0);
         exampleButton.disabled                     = (!document.getElementById('toggle-examples-' + activePage()));

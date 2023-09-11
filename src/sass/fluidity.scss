@@ -38,10 +38,10 @@ $max_font     : 17px;
   }
 
   @for $i from 1 through length($properties) {
-    #{nth($property, $i)}: #{nth($underValues, $i)};
+    #{nth($properties, $i)}: #{nth($underValues, $i)};
     
     @media screen and (min-width: #{nth($breaksizes, $i)}) {
-      #{nth($property, $i)}: #{nth($overValues, $i)};
+      #{nth($properties, $i)}: #{nth($overValues, $i)};
     }
   }
   @each $breaksize in $breaksizes {

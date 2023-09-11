@@ -13,7 +13,7 @@
         <article class="api-dialog">
             <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step1" value="1" checked hidden>
             <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step2" value="2" hidden>
-            <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step3" value="3" checked hidden>
+            <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step3" value="3" hidden>
             <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step4" value="4" hidden>
             <input type="radio" name="api-dialog-pagination" class="api-dialog-pagination" id="step5" value="5" hidden>
             <header class="api-dialog-header">
@@ -33,17 +33,7 @@
                     <section class="api-dialog-content-section section-1">
                         <h2>Usage Agreement</h2>
                         <section class="notice">
-                            <span class="svg heart-palette"></span>
-                            <h4>Important: Usage Agreement</h4>
-                            <strong>Adoption of StringTone</strong> as a <a href="#">standard for UI/UX improvement</a> is something we <a href="#">genuinely believe in</a>. As such, we do not, nor have any intention to, throttle the usage of the API at this time. We believe we can manage this because StringTone, along with the calls made to it, are downright itty-bitty (on the order of BYTES) and the full (low-impact, low-resource-usage) process execution is measured in MILLISECONDS.
-                            <br><br>
-                            <strong>However, That Being Said:</strong> we are an entirely self-funded, <a href="#">donation-based project</a>. <em>Bandwidth is not free</em>, nor is hosting, support, registrar fees, etc., not to mention the non-trivial amount of time, effort, and cost went into the research, design, development, and optimization of this project. We <b>run no ads</b>, keep <b>no usage logs</b>, we <b>charge no fees</b>... <em>heck, we don't even make you register an account</em>!
-                            <br><br>
-                            <strong>Abuse</strong> of our more-than-reasonable deal, therefore, will result in a warning, then restriction, then banning of the IP address responsible. <b>"What constitiutes 'abuse'?"</b> C'mon, now... use your best judgement. If you're bright enough to see the value in this utility, you're certainly smart enough to work out if you're taking advantage.
-                            <br><br>
-                            <a href="#" style="font-weight:700;">The StringTone library is available, <em style="font-weight:700;">FOR FREE</em></a>, at all times. If you think you're likely to be hammering on this public-facing API thousands of times an hour? <b>Please:</b> <a href="#">download</a> or <a href="#">fork</a> it, include it in your project, and go nuts, no strings attached!
-                            <br><br>
-                            <strong>Utilities like StringTone</strong> work best when standardized, and as widely-utilized as possible. So <b>don't be a dick</b>, and it's all good.
+                            <include-html src="components/api_instructions/page1.html"></include-html>
                         </section>
                     </section>
                     <section class="api-dialog-content-section section-2">
@@ -75,9 +65,9 @@
             </main>
             <footer class="api-dialog-footer">
                 <nav>
-                    <button class="api-dialog-footer-button" id="api-dialog-button-prev" disabled>Wait! Go back!</button>
-                    <button class="api-dialog-footer-button" id="api-dialog-button-example" disabled>Can I see an example?</button>
-                    <button class="api-dialog-footer-button" id="api-dialog-button-next">Okay, got it!</button>
+                    <button class="api-dialog-footer-button" id="api-dialog-button-prev" disabled>Back Up!</button>
+                    <button class="api-dialog-footer-button" id="api-dialog-button-example" disabled>Got any examples?</button>
+                    <button class="api-dialog-footer-button" id="api-dialog-button-next">Got It!</button>
         
                 </nav>
             </footer>

@@ -250,48 +250,7 @@ html, body {
                 line-height      : 1.4;
                 box-shadow       : 0 10px 20px #0008;
                 
-                span.svg.heart-palette {
-                    @include fluid-type(--size, 85px, 130px);
-                    filter                : drop-shadow(8px 10px 5px #0006);
-                    width                 : var(--size);
-                    height                : calc(1.15 * var(--size));
-                    float                 : right;
-                    margin                : 10px 0 -40px 10px;
-                }
                 
-                strong {
-                    font-weight           : 700;
-                    color                 : #000;
-                }
-                
-                b {
-                    font-weight           : 500;
-                    color                 : #000;
-                }
-                h4 {
-                    margin                : 0 0 5px 0;
-                    text-transform        : uppercase;
-                    color                 : #700;
-                    font-size             : 20px;
-                }
-                
-                a { 
-                    color                 : #500; 
-                    text-decoration-style : dashed;
-                    text-decoration-color : #0005;
-                    font-weight           : 500;
-                    
-                    &:hover {
-                        color                 : #500; 
-                        text-decoration-style : solid;
-                        text-decoration-color : #900;
-                        font-weight           : 600;
-                    }
-                }
-                
-                em {
-                    font-weight: 500;
-                }
             }
             
             
