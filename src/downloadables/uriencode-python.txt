@@ -1,0 +1,62 @@
+fileName = "my file(2).txt"
+header = f"Content-Disposition: attachment; filename*=UTF-8''{encodeRFC5987ValueChars(fileName)}"
+print(header)
+
+def encodeRFC5987ValueChars(str):
+    return (
+        urllib.parse.quote(str)
+        .replace(
+            "!", "%21"
+        )
+        .replace(
+            "*", "%2A"
+        )
+        .replace(
+            "'", "%27"
+        )
+        .replace(
+            "(", "%28"
+        )
+        .replace(
+            ")", "%29"
+        )
+        .replace(
+            ";", "%3B"
+        )
+        .replace(
+            ":", "%3A"
+        )
+        .replace(
+            "@", "%40"
+        )
+        .replace(
+            "&", "%26"
+        )
+        .replace(
+            "=", "%3D"
+        )
+        .replace(
+            "+", "%2B"
+        )
+        .replace(
+            "$", "%24"
+        )
+        .replace(
+            ",", "%2C"
+        )
+        .replace(
+            "/", "%2F"
+        )
+        .replace(
+            "?", "%3F"
+        )
+        .replace(
+            "#", "%23"
+        )
+        .replace(
+            "[", "%5B"
+        )
+        .replace(
+            "]", "%5D"
+        )
+    )

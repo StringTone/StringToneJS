@@ -1,0 +1,20 @@
+import.net.URLEncoder;
+
+public class Main {
+    public static void main(String[] args) {
+        String fileName = "my file(2).txt";
+        String header = "Content-Disposition: attachment; filename*=UTF-8''" + encodeRFC5987ValueChars(fileName);
+        System.out.println(header);
+    }
+
+    public static String encodeRFC5987ValueChars(String str) {
+        return URLEncoder.encode(str)
+                .replace("%27", "'")
+                .replace("%28", "(")
+                .replace("%29", ")")
+                .replace("%2A", "*")
+                .replace("%7C", "|")
+                .replace("%60", "`")
+                .replace("%5E", "^");
+    }
+}

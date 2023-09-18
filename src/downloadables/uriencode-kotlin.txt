@@ -1,0 +1,14 @@
+val fileName = "my file(2).txt"
+val header = "Content-Disposition: attachment; filename*=UTF-8''${encodeRFC5987ValueChars(fileName)}"
+println(header)
+
+fun encodeRFC5987ValueChars(str: String): String {
+    return URLEncoder.encode(str, "UTF-8")
+        .replace("%27", "'")
+        .replace("%28", "(")
+        .replace("%29", ")")
+        .replace("%2A", "*")
+        .replace("%7C", "|")
+        .replace("%60", "`")
+        .replace("%5E", "^")
+}

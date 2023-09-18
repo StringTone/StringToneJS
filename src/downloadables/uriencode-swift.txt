@@ -1,0 +1,14 @@
+let fileName = "my file(2).txt"
+let header = "Content-Disposition: attachment; filename*=UTF-8''\(encodeRFC5987ValueChars(fileName))"
+print(header)
+
+func encodeRFC5987ValueChars(_ str: String) -> String {
+    return str.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        .replacingOccurrences(of: "'", with: "%27")
+        .replacingOccurrences(of: "(", with: "%28")
+        .replacingOccurrences(of: ")", with: "%29")
+        .replacingOccurrences(of: "*", with: "%2A")
+        .replacingOccurrences(of: "%7C", with: "|")
+        .replacingOccurrences(of: "%60", with: "`")
+        .replacingOccurrences(of: "%5E", with: "^")
+}

@@ -1,0 +1,24 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+
+std::string encodeRFC5987ValueChars(const std::string& str) {
+  std::stringstream encoded;
+  for (char c : str) {
+    if (c == '\'' || c == '(' || c == ')' || c == '*') {
+      encoded << '%' << std::hex << std::uppercase << static_cast<int>(c);
+    } else if (c == '|' || c == '`' || c == '^') {
+      encoded << '%' << std::hex << static_cast<int>(c);
+    } else {
+      encoded << c;
+    }
+  }
+  return encoded.str();
+}
+
+int main() {
+  std::string fileName = "my file(2).txt";
+  std::string header = "Content-Disposition: attachment; filename*=UTF-8''" + encodeRFC5987ValueChars(fileName);
+  std::cout << header << std::endl;
+  return 0;
+}

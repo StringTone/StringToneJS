@@ -18,7 +18,7 @@ class StringTone {
     
     #a11yBG    = (hex, respectAlpha=0) => {
         let [r,g,b,a]=hexTools.inflateHex(hex, true, respectAlpha).map(v => parseInt('0x' + v));
-        return ((~~(r*299) + ~~(g*587) + ~~(b*114))/1000) >= 128 || (!!(~(128/a) + 1) && respectAlpha) ? '#000' : '#fff';   
+        return ((~~(r*299) + ~~(g*587) + ~~(b*114))/1000) >= 128 || (!!(~(128/a) + 1) && respectAlpha) ? '#FFF' : '#000';   
     }
     
     getStringFG   = (str) => (str == null || str === '') ? '#000000' : hexTools.deflateHex(this.#rotateArr(this.#strToClr(str)).join(''));
