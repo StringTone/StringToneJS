@@ -1,0 +1,54 @@
+span.svg.heart-palette {
+  filter: drop-shadow(8px 10px 5px rgba(0, 0, 0, 0.4));
+  width: var(--size);
+  height: calc(1.15 * var(--size));
+  float: right;
+  margin: 10px 0 -40px 10px;
+}
+span.svg.heart-palette {
+  --size: 85px;
+}
+@media screen and (min-width: 480px) {
+  span.svg.heart-palette {
+    --size: calc(8.2720588235vw + 45.2941176471px);
+  }
+}
+@media screen and (min-width: 1024px) {
+  span.svg.heart-palette {
+    --size: 130px;
+  }
+}
+
+strong {
+  font-weight: 700;
+  color: #000;
+}
+
+b {
+  font-weight: 500;
+  color: #000;
+}
+
+h4 {
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  color: #700;
+  font-size: 20px;
+}
+
+a {
+  color: #500;
+  text-decoration-style: dashed;
+  text-decoration-color: rgba(0, 0, 0, 0.3333333333);
+  font-weight: 500;
+}
+a:hover {
+  color: #500;
+  text-decoration-style: solid;
+  text-decoration-color: #900;
+  font-weight: 600;
+}
+
+em {
+  font-weight: 500;
+}

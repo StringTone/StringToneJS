@@ -1,0 +1,56 @@
+h3, ul, center {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+li {
+  display: block;
+  margin: 0;
+  padding: 6px 0 6px 0;
+}
+
+li + li {
+  border-top: 1px solid #111;
+  cursor: pointer;
+}
+
+li + li:hover {
+  animation: 2.5s hoverrow forwards;
+}
+
+li center {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+li center h3 {
+  color: #FFFCCC;
+  text-shadow: 0 -2px 1px black;
+}
+
+li code {
+  display: block;
+  white-space: pre;
+  overflow-x: auto;
+  max-width: 100%;
+  background: #1F1F1F;
+  border: 3px inset #AAA;
+  padding: 5px 20px 5px 10px;
+  font-family: monospace;
+}
+
+@keyframes hoverrow {
+  0% {
+    background-color: transparent;
+  }
+  10% {
+    background-color: #215C97;
+  }
+  100% {
+    background-color: transparent;
+  }
+}

@@ -6,7 +6,8 @@
   "scripts": {
     "sass": "sass --watch scss:css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "build": "node build.js && npm run server"
   },
 
   "keywords": ["StringTone", "Color", "String", "API", "NPM", "Universal", "Color", "Palette", "Derived"],

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <meta name='description' content='description'/>
+    <meta name='author' content='@JJ/ZenAtWork (Nerdy Deeds, LLC)' />
+    <meta name='keywords' content='string,tone,stringtone,color,text,text-to-color,api,download' />
+    <title>STRINGTONE :: API DOCS</title>
+    <link rel='stylesheet' href='/components/docs/docs.scss' type='text/css' />
+    <link rel='stylesheet' href='../../sass/svgs.scss' type='text/css' />
+</head>
+<body>
+    <article class="api-docs">
+        <div class="pro-tip">
+            <h4>PRO-TIP!</h4>
+            To<strong> quickly access this document</strong>, simply visit <a href="https://StringToneJS.com/api">https://StringToneJS.com/api</a>
+        </div>
+        <h1>StringTone API Documentation</h1>
+        <h2>Overview</h2>
+        <p>StringTone's API was designed with ease of operation in mind. Instead of requiring users to remember a dozen different endpoint URI's, all of the StringTone operations can be done from the same endpoint:</p>
+        <div class="api-uri monochrome">
+            <u>https://</u>
+            <a href="https://stringtonejs.com/api">StringToneJS.com
+                <u>/</u>
+                api
+                <u>/</u>
+                -=TEXT=-</a>
+            </div>
+            <p>
+                ...with additional functionality coming as a result of additional flags being passed, in any order, non-case-sensitive, to said endpoint.
+            </p>
+            <hr>
+            <h2>Endpoint Domains</h2>
+            <p>There are two primary domains through which the StringTone API (as well as this document) can be accesed:</p>
+            <ul class="endpoint-domains">
+                <li><u>https://</u><a href="https://stringtonejs.com/api/">StringToneJS.com/api/</a> </li>
+                <li> and </li>
+                <li><u>https://</u><a href="https://s2t.one/api/">S2T.one/api/</a>
+                    <div class="footnote">*A full 56% savings of those precious, precious keystrokes!</div>
+                </li>
+            </ul>
+            <hr>
+            <h2><span>Basic API Operation</span><button class="example-button"></button></h2>
+            <p><strong>
+                To interact with StringTone's API</strong>, a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET">GET</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST">POST</a> request is made to one of th above endpoints. To specify which features you want to use, <a href="#flags">flags</a> are passed as part of the request url, each
+                separated by a forward-slash (<code>/</code>). 
+            </p>
+            <p><a href="#flags">flags</a> are non-case-sensitive, and can appear in any order, so long as you <strong>follow two hard-and-fast rules</strong>:</p>
+            <ol>
+                <li>You must START the request with <code>api/</code>, and</li>
+                <li>Any text that follows the final forward slash is assumed to be that which you want the color identifier for.</li>
+            </ol>
+            <p>Let's take a look at the anatomy of the <strong>simplest possible request</strong> one can make:</p>
+            <div class="api-uri chromatic">
+                <u>https://</u>
+                <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">StringToneJS.com</a>
+                <u>/</u>
+                <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">api</a>
+                <u>/</u>
+                <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">-=TEXT=-</a>
+                <div class="url-anatomy-segment">
+                    <h4>https://StringToneJS.com/</h4>
+                    <h5>The domain hosting the StringTone endpoint.</h5>
+                    <p>
+                        This will be
+                        <a href="https://stringtonejs.com">StringToneJS.com</a> or <a href="https://s2t.one">s2t.one</a>
+                        if you continue using the public-facing API.
+                    </p>
+                    <p>
+                        Although please consider
+                        <a href="/download">downloading the FREE library</a> if you wish to include it on
+                        your own site/in your own project (there's <i>no</i> licensing fees*, <i>no</i> restrictions*,
+                        and <i>no</i> limits to use*, and detailed setup instructions are available in the
+                        included README)!
+                    </p>
+                    <small>*Within reason. Abuse may result in suspension.</small>
+                </div>
+                <div class="url-anatomy-segment">
+                    <h4>api/</h4>
+                    <h5>The API control segment</h5>
+                    <p>This is what indicates to the server that you wish to make an API request instead of a http content request.</p>
+                    <p>Note that it MUST appear as the first segment following the domain.</p>
+                </div>
+                <div class="url-anatomy-segment">
+                    <H4>-=TEXT=-</H4>
+                    <h5>The text you wish to obtain the color signature for</h5>
+                    <p>It is assumed that everything following the final "/" in the URL is part of the text for which you wish to obtain a StringTone.</p>
+                    <p>Note that the text is expected to be <a href="https://datatracker.ietf.org/doc/html/rfc3986#appendix-A">URIEncoded</a>, as it is the default behavior of the browser (meaning if you're using it with a browser you don't need to do anything in that case).  It is decoded again before deriving the StringTone that is returned.</p>
+                    <p> If you're using StringTone in your own coding project we <a href="#">provide a great many examples</a>.</p>
+                    <p>If you are running a private StringTone API instance, this can be disabled. If you're using the library in your own project source, this can be ingnored entirely.</p>
+                </div>
+            </div>
+            <br>
+            <hr>
+            <h2><span>Advanced Operations: Flags</span><button class="example-button"></button></h2>
+            <p>
+                <strong>Flags are also supported</strong> by StringTone's API. These are request modifiers that can be included as
+                segments of the request URL that can change the behavior of the request and/or the output of the return.
+            </p>
+            <h3>Types of Flag</h3>
+            <p>Flags fall into two categories: <strong>Cumulative Flags</strong> and <strong>Mutually-Exclusive Flags</strong>.</p>
+            <p><strong>Cumulative Flags</strong> are those that can be used in conjunction with one another, and will all be applied to the request.</p>
+            <p>
+                <strong>Mutually-Exclusive Flags</strong> are those that cannot be used in conjunction with one another, and will override any other 
+                flags of the same type that are passed.
+            </p>
+            <h3>Using Flags</h3>
+            <p>
+                You may include as many include as many flags as you like in a request. They are not case-sensitive, can appear in any order within 
+                the request URL, and should be separated by "<code>/</code>". The only restrictions are as follows:
+            </p>
+            <ol>
+                <li>They <b>must appear <em>after</em></b> the "<code>api/</code>" portion of the request URI.</li>
+                <li>They <b>must appear <em>before</em></b> the final "<code>/</code>" within the URI (or they will be interpreted as part of the text to convert).</li>
+                <li>In the case of <b>Mutually-Exclusive Flags</b>, <em>only the last one</em> of each category that appears in the URL will be respected.</em></li>
+            </ol>
+            <p>Let's look at the available flags, and then we'll show some examples.</p>
+            <h3><span>Cumulative Flags</span><button class="example-button"></button></h3>
+            <div class="api-uri chromatic">
+                <u>https://</u>
+                <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">StringToneJS.com</a>
+                <u>/</u>
+                <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">api</a>
+                <u>/</u>
+                <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">fg</a>
+                <u>/</u>
+                <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">bg</a>
+                <u>/</u>
+                <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">-=TEXT=-</a>
+                <div class="url-anatomy-segment">
+                    <h4>https://StringToneJS.com/</h4>
+                    <h5>The domain hosting the StringTone endpoint.</h5>
+                </div>
+                <div class="url-anatomy-segment">
+                    <h4>api/</h4>
+                    <h5>The API control segment</h5>
+                </div>
+                <div class="url-anatomy-segment">
+                    <h4>fg/</h4>
+                    <h5>Cumulative Flag: Foreground</h5>
+                    <p>
+                        This is the default behavior for the API, so normally you would not need to include this flag. However, if you wanted to
+                        get the foreground AND background colors for a string, you would include this flag along with the <code>bg/</code> flag
+                        (were you to provide only the <code>bg/</code> flag, you would get the background color, but not the foreground color).
+                        The result is cumulative: you get BOTH results.
+                    </p>
+                </div>
+                <div class="url-anatomy-segment">
+                    <h4>bg/</h4>
+                    <h5>Cumulative Flag: Background</h5>
+                    <p>
+                        This is not the default behavior for the API, so, if you wanted to the the high-contrast color compliment for the text
+                        you are converting, you would include this flag. In the interest of not making you make two requests, however, if you
+                        wish to get the foreground AND background colors for a string, you would include this flag along with the <code>fg/</code> flag.
+                        The result is cumulative: you get BOTH results.
+                    </p>
+                </div>
+                <div class="url-anatomy-segment">
+                    <H4>-=TEXT=-</H4>
+                    <h5>The text you wish to obtain the color signature for</h5>
+                </div>
+            </div>
+            <br>
+            <hr>
+            <h4></h4>
+            <p>
+                <div class="table-matrices" data-title="Request Type">
+                    <div class="td-header">Flag (Syntax)</div>
+                    <div class="td-header">Flag Name</div>
+                    <div class="td-header">Description</div>
+                    <div class="td default"><code>fg/</code></div>
+                    <div class="td">Foreground Color</div>
+                    <div class="td">
+                        Returns the color for the string to convert in hex format (unless otherwise specified; see below). <br> 
+                        This is the default, and is not required to be passed if this is what you're after.
+                    </div>
+                    
+                    <div class="td"><code>bg/</code></div>
+                    <div class="td">Background Color</div>
+                    <div class="td">
+                        Returns either <code>#FFF</code>(<small style="background:black; color: white;">white</small>) or <code>#000</code>
+                        (<small style="background:white; color: black;">black</small>) in hex format (unless otherwise specified; see below), 
+                        depending on which offers better contrast and readability. 
+                    </div>
+                    <div class="td"><code>fgbg/</code></div>
+                    <div class="td">Foreground + Background</div>
+                    <div class="td">
+                        Shorthand to request a JSON object containing both the converted color and its high-contrast background color (see above) in hex 
+                        format (unless otherwise specified; see below). <br><br>
+                        Note that if both <code>fg/</code> and <code>bg/</code> are passed, both will be returned in the response! <br><br>
+                        Also note that this flag will override any other <code>fg/</code> or <code>bg/</code> flags that are passed, as well as any
+                        return format flags (see below).
+                    </div>
+                    
+                    <div class="td"><code>convert/</code></div>
+                    <div class="td">Color Converter <small>[SPECIAL]</small></div>
+                    <div class="td">
+                        This flag overrides the default behavior of the API by forcing it to accept whatever follows the final slash is the hex 
+                        color value you are attempting to interact with (this is useful for converting a hex color to another format, rounding it to the
+                        nearest websafe color, or in cases where your own application needs a passthrough response or a noop. <br><br>
+                        <strong>Important:</strong> as with any text passed within a URI, the hashtag/octothorpe (<code>#</code>) must be URI-encoded as
+                        <code>%23</code> or it will be interpreted as the beginning of a fragment identifier and will be ignored.<br><br>
+                        <em><u>For example:</u></em><br>
+                        <code>https://s2t.one/api/C0FFEE</code> will return <code>#8020B9</code>. <br>
+                        <code>https://s2t.one/api/%23C0FFEE</code> will return <code>#540325</code>. <br>
+                        In both cases, the hex color value is being interpreted as the string you are attempting to convert. <br><br>
+                        Both <code>https://s2t.one/api/</code><b><code>convert/</code></b><code>C0FFEE</code> and
+                        <code>https://s2t.one/api/</code><b><code>convert/</code></b><code>%23C0FFEE</code>, however, 
+                        will return <code>#C0FFEE</code> (note that the hashtag IS always included in the response).<br><br>
+                        This is useful in cases where you want to use StringTone to convert a color to another format 
+                        (<code>https://s2t.one/api/</code><b><code>convert/rgb/</code></b><code>%23C0FFEE</code>, (which returns [192,255,238]),
+                        or to reduce the input to its nearest websafe color 
+                        (<code>https://s2t.one/api/</code><b><code>convert/round/</code></b><code>%23C0FFEE</code>, which returns <code>#BFE</code>).
+                    </div>
+                    
+                </div>
+                
+            </p>
+            <p>
+                <h3>Mutually-Exclusive Flags</h3>
+                <div class="api-uri chromatic">
+                    <u>https://</u>
+                    <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">StringToneJS.com</a>
+                    <u>/</u>
+                    <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">api</a>
+                    <u>/</u>
+                    <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">lower<u>/</u>upper</a>
+                    <u>/</u>
+                    <a href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">hex<u>/</u>rgb</a>
+                    <u>/</u>
+                    <a class="downplay" href="https://stringtonejs.com/api" onmouseover="this.focus();" onclick="return false;">-=TEXT=-</a>
+                    <div class="url-anatomy-segment">
+                        <h4>https://StringToneJS.com/</h4>
+                        <h5>The domain hosting the StringTone endpoint.</h5>
+                    </div>
+                    <div class="url-anatomy-segment">
+                        <h4>api/</h4>
+                        <h5>The API control segment</h5>
+                    </div>
+                    <div class="url-anatomy-segment">
+                        <h4>lower/ & upper/</h4>
+                        <h5>Cumulative Flag: Foreground</h5>
+                        <p>
+                            This is an example of a mutually-exclusive flag being set twice. In this case, <code>upper/</code>, which returns the result in
+                            ALL UPPERCASE LETTERS, is in direct opposition to <code>lower/</code>, which does the opposite. In this case, the last flag
+                            of this variety that is passed will be the one that is respected.
+                        </p>
+                    </div>
+                    <div class="url-anatomy-segment">
+                        <h4>hex/ & rgb/</h4>
+                        <h5>Cumulative Flag: Background</h5>
+                        <p>
+                            This, too, is an example of a mutually-exclusive flag: In this example, both <code>hex/</code>, and <code>rgb</code> are passed.
+                            Since both dictate to return the same result but in conflicting formats, only the last one passed will be the one that is respected.
+                        </p>
+                    </div>
+                    <div class="url-anatomy-segment">
+                        <H4>-=TEXT=-</H4>
+                        <h5>The text you wish to obtain the color signature for</h5>
+                    </div>
+                </div>
+            </p>
+            <p>
+                <div class="table-matrices" data-title="Case Format">
+                    <div class="td-header">Flag (Syntax)</div>
+                    <div class="td-header">Flag Name</div>
+                    <div class="td-header">Description</div>
+                    <div class="td default"><code>auto/</code></div>
+                    <div class="td">Automatic Case Selection</div>
+                    <div class="td">
+                        Returns the color for the string to convert in the most commonly-used format for that format.
+                    </div>
+                    <div class="td"><code>upper/</code></div>
+                    <div class="td">Uppercase Return Value</div>
+                    <div class="td">
+                        Returns the color for the string to convert in all uppercase letters.
+                    </div>
+                    <div class="td"><code>lower/</code></div>
+                    <div class="td">Lowercase Return Value</div>
+                    <div class="td">
+                        Returns the color for the string to convert in all lowercase letters.
+                    </div>
+                </div>
+                
+            </p>
+            
+            <p>
+                <div class="table-matrices" data-title="Color Format">
+                    <div class="td-header">Flag (Syntax)</div>
+                    <div class="td-header">Flag Name</div>
+                    <div class="td-header">Description</div>
+                    <div class="td default"><code>hex/</code></div>
+                    <div class="td">HEX Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in hex format (<code>#RGB</code> or <code>#RRGGBB</code> ).
+                    </div>
+                    <div class="td "><code>hexa/</code></div>
+                    <div class="td">HEXA Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in hexa format (<code>#RGBA</code> or <code>#RRGGBBAA</code> ).
+                    </div>
+                    <div class="td "><code>rgb/</code></div>
+                    <div class="td">RGB Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in rgb format (<code>[R,G,B]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>rgb(R,G,B)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>
+                    <div class="td "><code>rgba/</code></div>
+                    <div class="td">RGBA Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in rgba format (<code>[R,G,B,A]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>rgba(R,G,B,A)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>  
+                    <div class="td "><code>hsl/</code></div>
+                    <div class="td">HSL Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in hsl format (<code>[H,S,L]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>hsl(H,S,L)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>
+                    <div class="td "><code>hsla/</code></div>
+                    <div class="td">HSLA Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in hsla format (<code>[H,S,L,A]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>hsla(H,S,L,A)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>
+                    <div class="td "><code>cmyk/</code></div>
+                    <div class="td">CMYK Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in cmyk format (<code>[C,M,Y,K]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>cmyk(C,M,Y,K)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>
+                    <div class="td "><code>cmyka/</code></div>
+                    <div class="td">CMYKA Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert in cmyka format (<code>[C,M,Y,K,A]</code>). 
+                        Note that if you would like the return value in web format (i.e <code>cmyka(C,M,Y,K,A)</code>), you can use 
+                        the <code>web/</code> flag (see below).
+                    </div>
+                    
+
+                </div>
+                
+            </p>
+            <p>
+                <div class="table-matrices" data-title="HEX Format">
+                    <div class="td-header">Flag (Syntax)</div>
+                    <div class="td-header">Flag Name</div>
+                    <div class="td-header">Description</div>
+                    <div class="td default"><code>deflate/</code></div>
+                    <div class="td">Deflate Hex Color</div>
+                    <div class="td">
+                        Reduces the hex code to the smallest possible return value, when each couplet group is the same character 
+                        (e.g <code>#aabbcc</code> reduces to <code>#abc</code>, and <code>#EEEEEEAA</code> reduces to <code>#EEEA</code> ).
+                    </div>
+                    <div class="td"><code>inflate/</code></div>
+                    <div class="td">Inflate Hex Color</div>
+                    <div class="td">
+                        This is the opposite of Deflate. Inflates a 3- or 4-character hex code to the typical two characters per couplet group
+                        (e.g <code>#000</code> expands to <code>#000000</code>, and <code>#DAD1</code> expands to <code>#DDAADD11</code> ).
+                    </div>
+                    <div class="td"><code>round/</code></div>
+                    <div class="td">Round To Websafe</div>
+                    <div class="td">
+                        Forces the result to the nearest 3-character hex code (e.g. <code>#ABCDEF</code> rounds to <code>#ACE</code>).
+                    </div>
+                    <div class="td block-notation">*Note that the above flags are only applicable to requests containing a hex color return values.</div>
+                </div>
+                
+            </p>
+            <p>
+                <div class="table-matrices" data-title="Return Format">
+                    <div class="td-header">Flag (Syntax)</div>
+                    <div class="td-header">Flag Name</div>
+                    <div class="td-header">Description</div>
+                    
+                    <div class="td default"><code>string/</code></div>
+                    <div class="td">String Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert as a string (or an object formatted as a string if necessary).
+                    </div>
+                    <div class="td"><code>web/</code></div>
+                    <div class="td">Web String Format</div>
+                    <div class="td">
+                        An extension of the <code>string/</code> flag, this returns the color for the string to convert as a string in web format
+                        (that is, with the decorator for the format included, e.g. <code>rgb(R,G,B)</code>).
+                    </div>
+                    <div class="td"><code>object/</code></div>
+                    <div class="td">Object Format</div>
+                    <div class="td">
+                        Returns the color for the string to convert as an object (e.g. <code>{"foreground":[R,G,B], "background":[R,G,B]}</code>).
+                    </div>
+                </div>
+                
+            </p>
+            <p>And finally:</p>
+            <footer class="usage-agreement">
+                <span class="svg heart-palette" style="float:right;width:85px; height:130px;"></span>
+                <h4>Important: Usage Agreement</h4>
+                <strong>Adoption of StringTone</strong> as a <a href="#">standard for UI/UX improvement</a> is something we <a href="#">genuinely believe in</a>. As such, we do not, nor have any intention to, throttle the usage of the API at this time. We believe we can manage this because StringTone, along with the calls made to it, are downright itty-bitty (on the order of BYTES) and the full (low-impact, low-resource-usage) process execution is measured in MILLISECONDS.
+                <br><br>
+                <strong>However, That Being Said:</strong> we are an entirely self-funded, <a href="#">donation-based project</a>. <em>Bandwidth is not free</em>, nor is hosting, support, registrar fees, etc., not to mention the non-trivial amount of time, effort, and cost went into the research, design, development, and optimization of this project. We <b>run no ads</b>, keep <b>no usage logs</b>, we <b>charge no fees</b>... <em>heck, we don't even make you register an account</em>!
+                <br><br>
+                <strong>Abuse</strong> of our more-than-reasonable deal, therefore, will result in a warning, then restriction, then banning of the IP address responsible. <b>"What constitiutes 'abuse'?"</b> C'mon, now... use your best judgement. If you're bright enough to see the value in this utility, you're certainly smart enough to work out if you're taking advantage.
+                <br><br>
+                <a href="/downloadables/stringtone.zip" style="font-weight:700;">The StringTone library is available, <em style="font-weight:700;">FOR FREE</em></a>, at all times. If you think you're likely to be hammering on this public-facing API thousands of times an hour? <b>Please:</b> <a href="#">download</a> or <a href="#">fork</a> it, include it in your project, and go nuts, no strings attached!
+                <br><br>
+                <strong>Utilities like StringTone</strong> work best when standardized, and as widely-utilized as possible. So <b>don't be a dick</b>, and it's all good.
+
+            </footer>
+        </article>
+        <script src='/components/docs/docs.js'></script>
+    </body>
+    </html>
+    

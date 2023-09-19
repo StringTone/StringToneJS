@@ -1,0 +1,654 @@
+*,
+*::before,
+*::after {
+  position: relative;
+  box-sizing: border-box;
+  font-family: system-ui;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.pro-tip {
+  display: block;
+  border: 5px double #700;
+  padding: 15px 10px 13px;
+  background-color: #ffc;
+  border-radius: 5px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+  margin-top: 10px !important;
+  text-align: center;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+.pro-tip, .pro-tip > * {
+  color: #530 !important;
+}
+.pro-tip h4 {
+  position: absolute;
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 2.5px;
+  top: -15px;
+  left: -8px;
+  transform: rotate(-5deg);
+  text-shadow: 1.5px 0 0 #ffe, -1.5px 0 0 #ffe, 0 1.5px 0 #ffe, 0 -1.5px 0 #ffe, 1.5px 1.5px 0 #ffe, -1.5px 1.5px 0 #ffe, 1.5px -1.5px 0 #ffe, -1.5px -1.5px 0 #ffe, 2.75px 0 3px #530, -2.75px 0 3px #530, 0 2.75px 3px #530, 0 -2.75px 1.5px #530, 0 2.75px 3px #530, 2.75px 2.75px 0 #530, -2.75px 2.75px 0 #530, 2.75px -2.75px 0 #530, -2.75px -2.75px 0 #530, -2px 5px 8px #000;
+}
+
+a {
+  color: inherit;
+  text-decoration-style: dotted;
+}
+
+a[href^=http]:not([href*=stringto]):not([href*="s2t.one"]) {
+  --bgImg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 37 35'%3E%3Cpath fill='none' stroke='%234F473F' stroke-linejoin='bevel' stroke-width='3' d='M8.5 16.5c-5 0-5 0-5 5v5c0 5 0 5 5 5h9c5 0 5 0 5-5v-2'%3E%3C/path%3E%3Cpath fill='none' stroke='%234F473F' stroke-linejoin='bevel' stroke-width='3' d='M16 1h16a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H16a3 3 0 0 1-3-3V4a3 3 0 0 1 3-3Z' opacity='0'%3E%3C/path%3E%3Cpath fill='none' stroke='%234F473F' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 12h6l-9 10 1 1 9-10v7'%3E%3C/path%3E%3C/svg%3E");
+  display: inline-block;
+  padding-right: 1.25rem;
+  color: #4f473f;
+  text-decoration-style: dotted;
+}
+a[href^=http]:not([href*=stringto]):not([href*="s2t.one"])::after {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-repeat: no-repeat;
+}
+a[href^=http]:not([href*=stringto]):not([href*="s2t.one"]):hover {
+  color: #bbb5af;
+  text-decoration-style: solid;
+}
+a[href^=http]:not([href*=stringto]):not([href*="s2t.one"]):hover::after {
+  background-image: var(--hvrImg, var(--bgImg));
+}
+a[href^=http]:not([href*=stringto]):not([href*="s2t.one"]):not(:hover)::after {
+  --hvrImg: unset;
+  background-image: var(--bgImg);
+}
+
+body {
+  background: #bfb8ae;
+}
+
+.api-docs {
+  background: #dacebe;
+  display: block;
+  min-width: 480px;
+  width: 88%;
+  padding: 1% 4% 300px;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  line-height: 1.5;
+}
+.api-docs hr {
+  border: 0 none;
+  border-bottom: 3px double rgba(139, 115, 85, 0.4666666667);
+  max-width: 80%;
+  margin: 20px auto 10px;
+}
+.api-docs h3 {
+  color: #8b7355;
+}
+.api-docs h2:has(button),
+.api-docs h3:has(button),
+.api-docs h4:has(button),
+.api-docs h5:has(button) {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 -15px 0;
+}
+.api-docs h2 .example-button,
+.api-docs h3 .example-button,
+.api-docs h4 .example-button,
+.api-docs h5 .example-button {
+  display: block;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 0 600 500'%3E%3Cg transform='scale(0.5)'%3E%3Cpath fill='%238B7355' d='M250 0a250 250 0 1 1-1 500 250 250 0 0 1 1-500Z'%3E%3C/path%3E%3Cpath d='m320 139-84 244c-7 21-51 3-44-18l84-245c7-21 51-5 44 19Z'%3E%3C/path%3E%3Cpath d='m35 266 86 83c19 19 50-11 31-30l-62-61c-8-6-8-6 0-11l62-61c21-21-9-52-31-31l-86 84c-13 13-13 13 0 27Z'%3E%3C/path%3E%3Cpath d='m468 266-85 83c-19 19-50-11-31-30l62-61c7-6 7-6 0-11l-62-62c-21-20 9-52 31-30l85 84c14 13 14 13 0 27Z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E") no-repeat;
+  width: 64px;
+  height: 64px;
+  border: 0 none;
+  pointer-events: none;
+  filter: invert(1) hue-rotate(180deg) drop-shadow(1px 2px 1px #000);
+  transition: 0.2s all ease-out;
+  margin-top: 5px;
+}
+.api-docs h2 .example-button::after,
+.api-docs h3 .example-button::after,
+.api-docs h4 .example-button::after,
+.api-docs h5 .example-button::after {
+  content: "";
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: all;
+  cursor: pointer;
+}
+.api-docs h2 .example-button:hover,
+.api-docs h3 .example-button:hover,
+.api-docs h4 .example-button:hover,
+.api-docs h5 .example-button:hover {
+  filter: invert(0) hue-rotate(0);
+  transition: 0.5s filter linear, 0.2s margin-top, 0.2s margin-bottom;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.api-docs h2 .example-button:hover::after,
+.api-docs h3 .example-button:hover::after,
+.api-docs h4 .example-button:hover::after,
+.api-docs h5 .example-button:hover::after {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  transition: 0.5s all linear;
+}
+.api-docs code {
+  font-family: "hack", monospace;
+  font-size: 95%;
+  background-color: rgba(255, 255, 255, 0.3333333333);
+  padding: 0 2px 0 3px;
+  border-radius: 4px;
+}
+.api-docs b > code {
+  padding: 0 2px 0 0;
+}
+.api-docs ol > li {
+  margin-bottom: 8px;
+}
+.api-docs .api-uri {
+  text-align: center;
+  border: 5px double #dacebe;
+  margin: 20px auto 10px;
+  border-radius: 50px;
+  background: #efeeeb;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2), -0.5px -0.5px 1px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  width: min-content;
+  min-width: 440px;
+  white-space: nowrap;
+  transition: 0s z-index 2.51s;
+  z-index: 3;
+}
+.api-docs .api-uri u, .api-docs .api-uri > a > u {
+  color: #888;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  display: inline-block;
+  padding: 0 3px;
+  margin: 0 -7px 0 -6px;
+}
+.api-docs .api-uri > a {
+  text-decoration-style: dotted;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.api-docs .api-uri > a > u {
+  margin: 0;
+  font-size: 1rem;
+}
+.api-docs .api-uri > a.downplay {
+  filter: grayscale(1) contrast(0.25) brightness(1.25);
+}
+.api-docs .api-uri > a.downplay:hover {
+  filter: none;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(1),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(1) {
+  --color: darkblue;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(2),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(2) {
+  --color: darkcyan;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(3),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(3) {
+  --color: darkgreen;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(4),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(4) {
+  --color: darkgoldenrod;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(5),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(5) {
+  --color: darkorange;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(6),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(6) {
+  --color: darkred;
+}
+.api-docs .api-uri > a, .api-docs .api-uri > a:nth-of-type(7),
+.api-docs .api-uri .url-anatomy-segment,
+.api-docs .api-uri .url-anatomy-segment:nth-of-type(7) {
+  --color: darkviolet;
+}
+.api-docs .api-uri a {
+  color: var(--color);
+}
+.api-docs .api-uri .url-anatomy-segment {
+  color: rgba(0, 0, 0, 0.7333333333);
+  font-weight: 400;
+  position: absolute;
+  background: white;
+  padding: 15px;
+  max-width: 50%;
+  min-width: 420px;
+  white-space: wrap;
+  text-align: left;
+  border-radius: 15px;
+  filter: none;
+  transition: 0.4s transform 0.3s;
+  box-shadow: 0 5px 10px black;
+  border: 2px solid var(--color);
+  background: color-mix(in srgb, white, var(--color) 10%);
+  letter-spacing: 0;
+  pointer-events: none;
+}
+.api-docs .api-uri .url-anatomy-segment:not(:hover) {
+  transform: scaley(0) translate(-50%, -80%);
+  left: 50%;
+  opacity: 0;
+}
+.api-docs .api-uri .url-anatomy-segment h4,
+.api-docs .api-uri .url-anatomy-segment h5 {
+  margin: 0 0 4px 0;
+  color: var(--color);
+}
+.api-docs .api-uri .url-anatomy-segment h4 {
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.api-docs .api-uri .url-anatomy-segment h5 {
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+.api-docs .api-uri .url-anatomy-segment p {
+  margin: 6px 0 2px;
+}
+.api-docs .api-uri .url-anatomy-segment > a {
+  color: var(--color);
+}
+.api-docs .api-uri, .api-docs .api-uri > * {
+  transition: 0.5s all ease-in;
+}
+.api-docs .api-uri:has(a:hover), .api-docs .api-uri:has(a:hover) > *, .api-docs .api-uri:has(a:active), .api-docs .api-uri:has(a:active) > *, .api-docs .api-uri:has(a:focus), .api-docs .api-uri:has(a:focus) > *, .api-docs .api-uri:has(a:focus-within), .api-docs .api-uri:has(a:focus-within) > *, .api-docs .api-uri:has(a:target), .api-docs .api-uri:has(a:target) > * {
+  transition: 0.15s all ease-in;
+}
+.api-docs .api-uri:has(a:hover) > *:not(a:hover):not(a:active):not(a:focus):not(a:focus-within):not(a:target):not(.url-anatomy-segment), .api-docs .api-uri:has(a:active) > *:not(a:hover):not(a:active):not(a:focus):not(a:focus-within):not(a:target):not(.url-anatomy-segment), .api-docs .api-uri:has(a:focus) > *:not(a:hover):not(a:active):not(a:focus):not(a:focus-within):not(a:target):not(.url-anatomy-segment), .api-docs .api-uri:has(a:focus-within) > *:not(a:hover):not(a:active):not(a:focus):not(a:focus-within):not(a:target):not(.url-anatomy-segment), .api-docs .api-uri:has(a:target) > *:not(a:hover):not(a:active):not(a:focus):not(a:focus-within):not(a:target):not(.url-anatomy-segment) {
+  filter: saturate(0) contrast(0) brightness(1.25);
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover, .api-docs .api-uri:has(a:hover) > a:active, .api-docs .api-uri:has(a:hover) > a:focus, .api-docs .api-uri:has(a:hover) > a:focus-within, .api-docs .api-uri:has(a:hover) > a:target, .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover, .api-docs .api-uri:has(a:active) > a:active, .api-docs .api-uri:has(a:active) > a:focus, .api-docs .api-uri:has(a:active) > a:focus-within, .api-docs .api-uri:has(a:active) > a:target, .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover, .api-docs .api-uri:has(a:focus) > a:active, .api-docs .api-uri:has(a:focus) > a:focus, .api-docs .api-uri:has(a:focus) > a:focus-within, .api-docs .api-uri:has(a:focus) > a:target, .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover, .api-docs .api-uri:has(a:focus-within) > a:active, .api-docs .api-uri:has(a:focus-within) > a:focus, .api-docs .api-uri:has(a:focus-within) > a:focus-within, .api-docs .api-uri:has(a:focus-within) > a:target, .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover, .api-docs .api-uri:has(a:target) > a:active, .api-docs .api-uri:has(a:target) > a:focus, .api-docs .api-uri:has(a:target) > a:focus-within, .api-docs .api-uri:has(a:target) > a:target {
+  font-weight: 700;
+  outline: 0 none !important;
+  outline-color: var(--color);
+  opacity: 0.75;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(1) ~ .url-anatomy-segment:nth-of-type(1) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(2) ~ .url-anatomy-segment:nth-of-type(2) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(3) ~ .url-anatomy-segment:nth-of-type(3) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(4) ~ .url-anatomy-segment:nth-of-type(4) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(5) ~ .url-anatomy-segment:nth-of-type(5) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(6) ~ .url-anatomy-segment:nth-of-type(6) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri:has(a:hover):not(.monochrome) > a:hover:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:hover) > a:active:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:hover) > a:focus:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:hover) > a:focus-within:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:hover) > a:target:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:active):not(.monochrome) > a:hover:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:active) > a:active:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:active) > a:focus:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:active) > a:focus-within:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:active) > a:target:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus):not(.monochrome) > a:hover:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus) > a:active:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus) > a:focus:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus) > a:focus-within:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus) > a:target:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus-within):not(.monochrome) > a:hover:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus-within) > a:active:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus-within) > a:focus:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus-within) > a:focus-within:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:focus-within) > a:target:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:target):not(.monochrome) > a:hover:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:target) > a:active:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:target) > a:focus:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:target) > a:focus-within:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7), .api-docs .api-uri:has(a:target) > a:target:nth-of-type(7) ~ .url-anatomy-segment:nth-of-type(7) {
+  transform: scaley(1) translate(-50%);
+  left: 50%;
+  opacity: 1;
+  transition: 0.4s transform ease-in, 0.3s opacity 0.15s;
+}
+.api-docs .api-uri.monochrome,
+.api-docs .api-uri.monochrome a {
+  cursor: default;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(1) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(2) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(3) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(4) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(5) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(6) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome a:nth-of-type(7) {
+  --color: darkblue;
+}
+.api-docs .api-uri.monochrome u {
+  text-decoration-style: dotted;
+  font-size: 0.95rem;
+}
+.api-docs .api-uri::before {
+  content: "Example StringTone Endpoint URI";
+  letter-spacing: -0.15px;
+  color: #fdf7ec;
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  line-height: 1;
+  z-index: 0;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2);
+}
+.api-docs .api-uri:not(.monochrome)::after {
+  content: "(Hover/Tap/Click a URL segment for details.)";
+  font-style: italic;
+  display: block;
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  bottom: -24px;
+  left: 0;
+  font-size: 11px;
+  pointer-events: none;
+}
+.api-docs .endpoint-domains {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 45px;
+  padding: 0;
+}
+.api-docs .endpoint-domains li {
+  display: inline-block;
+  text-align: center;
+  margin: 0;
+  padding: 5px 0;
+}
+.api-docs .endpoint-domains li:nth-of-type(odd) {
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+.api-docs .endpoint-domains li:nth-of-type(odd) u {
+  color: rgba(0, 0, 0, 0.4666666667);
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-right: 1px;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 0.125rem;
+}
+.api-docs .endpoint-domains li:nth-of-type(odd) a {
+  color: #000;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-decoration-style: dotted;
+}
+.api-docs .endpoint-domains li:nth-of-type(1) {
+  min-width: 47%;
+}
+.api-docs .endpoint-domains li:nth-of-type(3) {
+  min-width: 45%;
+}
+.api-docs .endpoint-domains li:nth-of-type(2) {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.4);
+  min-width: 8%;
+}
+.api-docs .endpoint-domains li div {
+  font-size: 11px;
+  width: 90%;
+  left: 5%;
+  line-height: 1;
+  margin-top: 6px;
+  position: absolute;
+  opacity: 0.33;
+}
+.api-docs::before {
+  content: "";
+  position: fixed;
+  display: block;
+  background: rgba(0, 0, 0, 0.1333333333);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  backdrop-filter: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s backdrop-filter ease-in, 0.25s opacity 0.5s;
+}
+.api-docs > h5 {
+  right: 0;
+  line-height: 1;
+  color: #a8a198;
+  font-size: 30px;
+  position: absolute;
+  z-index: 0;
+  margin: 5px 35px 0 0;
+}
+
+article:has(.api-uri:not(.monochrome):hover) *, article:has(.api-uri:not(.monochrome):hover) > a *,
+article:has(.api-uri:not(.monochrome):active) *,
+article:has(.api-uri:not(.monochrome):active) > a *,
+article:has(.api-uri:not(.monochrome):focus) *,
+article:has(.api-uri:not(.monochrome):focus) > a *,
+article:has(.api-uri:not(.monochrome):focus-within) *,
+article:has(.api-uri:not(.monochrome):focus-within) > a *,
+article:has(.api-uri:not(.monochrome):target) *,
+article:has(.api-uri:not(.monochrome):target) > a * {
+  z-index: 0;
+}
+article:has(.api-uri:not(.monochrome):hover) .api-uri, article:has(.api-uri:not(.monochrome):hover) > a .api-uri,
+article:has(.api-uri:not(.monochrome):active) .api-uri,
+article:has(.api-uri:not(.monochrome):active) > a .api-uri,
+article:has(.api-uri:not(.monochrome):focus) .api-uri,
+article:has(.api-uri:not(.monochrome):focus) > a .api-uri,
+article:has(.api-uri:not(.monochrome):focus-within) .api-uri,
+article:has(.api-uri:not(.monochrome):focus-within) > a .api-uri,
+article:has(.api-uri:not(.monochrome):target) .api-uri,
+article:has(.api-uri:not(.monochrome):target) > a .api-uri {
+  z-index: 5;
+  transition: none;
+}
+article:has(.api-uri:not(.monochrome):hover) .api-uri > *, article:has(.api-uri:not(.monochrome):hover) > a .api-uri > *,
+article:has(.api-uri:not(.monochrome):active) .api-uri > *,
+article:has(.api-uri:not(.monochrome):active) > a .api-uri > *,
+article:has(.api-uri:not(.monochrome):focus) .api-uri > *,
+article:has(.api-uri:not(.monochrome):focus) > a .api-uri > *,
+article:has(.api-uri:not(.monochrome):focus-within) .api-uri > *,
+article:has(.api-uri:not(.monochrome):focus-within) > a .api-uri > *,
+article:has(.api-uri:not(.monochrome):target) .api-uri > *,
+article:has(.api-uri:not(.monochrome):target) > a .api-uri > * {
+  z-index: 4;
+}
+article:has(.api-uri:not(.monochrome):hover)::before, article:has(.api-uri:not(.monochrome):hover) > a::before,
+article:has(.api-uri:not(.monochrome):active)::before,
+article:has(.api-uri:not(.monochrome):active) > a::before,
+article:has(.api-uri:not(.monochrome):focus)::before,
+article:has(.api-uri:not(.monochrome):focus) > a::before,
+article:has(.api-uri:not(.monochrome):focus-within)::before,
+article:has(.api-uri:not(.monochrome):focus-within) > a::before,
+article:has(.api-uri:not(.monochrome):target)::before,
+article:has(.api-uri:not(.monochrome):target) > a::before {
+  content: "";
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  opacity: 1;
+  transition: none;
+  backdrop-filter: saturate(0) blur(1px);
+}
+
+.table-matrices {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 4fr;
+  gap: 0;
+  height: auto;
+  font-size: 0.8rem;
+  white-space: normal;
+  max-width: 80vw;
+  min-width: 440px;
+  overflow: auto;
+  margin: 60px 0 30px;
+}
+.table-matrices:has(.block-notation) {
+  padding-bottom: 25px;
+}
+.table-matrices .td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.3333333333);
+}
+.table-matrices .td:nth-child(3n-2), .table-matrices .td-header:nth-child(3n-2) {
+  border-left: 1px solid rgba(255, 255, 255, 0.2666666667);
+  white-space: nowrap;
+  font-weight: 700;
+}
+.table-matrices .td:nth-child(3n-1), .table-matrices .td-header:nth-child(3n-1) {
+  font-weight: 500;
+}
+.table-matrices .td:nth-child(3n), .table-matrices .td-header:nth-child(3n) {
+  white-space: normal;
+}
+.table-matrices .td.block-notation {
+  font-size: 0.7rem;
+  font-weight: 300;
+  font-style: italic;
+  padding: 2px;
+  position: absolute;
+  bottom: 8px;
+  background: transparent;
+  border: 0 none;
+  width: 100%;
+  text-align: center;
+}
+.table-matrices .td.default::after {
+  content: "DEFAULT";
+  position: absolute;
+  font-size: 0.4rem;
+  background: #fff;
+  padding: 0 2px;
+  border-radius: 4px;
+  border: 1px solid rgba(119, 0, 0, 0.6666666667);
+  color: #700;
+  top: 2px;
+  right: 2px;
+  transform-origin: 0% 0%;
+  opacity: 0.5;
+}
+.table-matrices .td-header {
+  border: 1px solid rgba(0, 0, 0, 0.3333333333);
+  border-left: 0 none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(170, 170, 170, 0.3333333333);
+}
+.table-matrices::after {
+  content: attr(data-title);
+  display: block;
+  width: 400px;
+  text-align: right;
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  line-height: 32px;
+  color: #a98;
+  font-size: 1.5rem;
+  /* z-index: 0; */
+  /* margin: 5px 35px 0 0; */
+  z-index: 1;
+  margin: 0 5px 0 0;
+  font-style: italic;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.4), -1px -1px 0 rgba(0, 0, 0, 0.6666666667);
+  position: absolute;
+}
+
+span.svg.heart-palette {
+  filter: drop-shadow(8px 10px 5px rgba(0, 0, 0, 0.4));
+  width: var(--size);
+  height: calc(1.15 * var(--size));
+  float: right;
+  margin: 10px 0 -40px 10px;
+}
+span.svg.heart-palette {
+  --size: 85px;
+}
+@media screen and (min-width: 480px) {
+  span.svg.heart-palette {
+    --size: calc(8.2720588235vw + 45.2941176471px);
+  }
+}
+@media screen and (min-width: 1024px) {
+  span.svg.heart-palette {
+    --size: 130px;
+  }
+}
+
+.usage-agreement {
+  background-color: #FAA;
+  border: 5px double #700;
+  color: #400;
+  font-size: 0.75rem;
+  padding: 20px;
+  border-radius: 10px;
+}
