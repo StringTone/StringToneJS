@@ -1,10 +1,10 @@
+const isDevMode = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
+
 const express = require("express");
 const path = require('path');
 const stringTone = require("./src/scripts/StringTone.js");
 const hexConversions = require("./src/scripts/HexConversions.js")
 const hexTools = require("./src/scripts/HexTools.js")
-// const glob = require('glob');
-// console.log('glob :', glob.glob('**/*.scss', (err, files) => {console.log(err, files)}));
 
 const sass= require('sass');
 
@@ -14,7 +14,7 @@ app.listen(3000, () => {
     console.log("Server has started! Open http://localhost:3000")
 })
 
-const isDevMode = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
+
 const baseSourcePath = (isDevMode) ? 'src/' : 'public/';
 
 const supportedFileTypes = {
@@ -148,12 +148,21 @@ const setWebFormat = (value, colorFormat) => {
 }
 
 let summaryOutput, formattedReturnString;
+// app.get('/api\/?/i', (req, res, next) => {
+//     // User is requesting the API docs (passed in only the /api path)
+//     console.log('req.path :', req.path);
+//     res.set('Content-Type', supportedFileTypes['html'].mimeType);
+//     return res.sendFile(path.join(req.path, '/components/docs/docs.html'));
+// });
 
-app.get('/api/:stringToConvert([\\S\\s]+)', (req, res, next) => {
+app.get('/api/(:stringToConvert([\\S\\s]+))?', (req, res, next) => {
     // User is requesting the API docs (passed in only the /api path)
+    console.log('req.path :', req.path);
     if(/^\/api\/?$/i.test(req.path)) {
-        res.set('Content-Type', supportedFileTypes['html'].mimeType);
-        return res.sendFile(path.join(req.path, 'components/docs/docs.html'));
+    console.log('req.path :', req.path);
+    res.set('Content-Type', supportedFileTypes['html'].mimeType);
+    return res.sendFile(path.join(__dirname, baseSourcePath + req.path.replace(/\/api/i, ''), 'components/docs/docs.html'));
+
     }
     const pathComponents  = req.path.replace(/\/(?:fgbg|bgfg)\//, '/fg/bg/').split('/').slice(1);
     const includedReturns = ['fg', 'bg', 'verbose', 'convert'];

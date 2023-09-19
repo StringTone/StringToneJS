@@ -1,7 +1,9 @@
+@import './fluidity.scss';
+
 .svg {
     display: inline-block;
-    min-width: 10px;
-    min-height: 10px;
+    min-width: calc(var(--calc) * var(--size, var(--width, 1px)))/var(--size, var(--width, 1px));
+    min-height: calc(var(--calc) * var(--size, var(--height, 1px)))/var(--size, var(--height, 1px));
     background-repeat: no-repeat;
 }
 

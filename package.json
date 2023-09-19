@@ -1,19 +1,27 @@
 {
   "name": "stringtone",
   "version": "1.0.0",
-  "description": "",
+  "description": "StringToneJS is the open API that can repeatedly, and consistently transform text of any length into a color, for use in any application, on any platform, in any language.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "sass --watch scss:css",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+
+  "keywords": ["StringTone", "Color", "String", "API", "NPM", "Universal", "Color", "Palette", "Derived"],
+  "author": "@JJ/ZenAtWork for Nerdy Deeds, LLC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StringTone/StringToneJS/"
+  },
+  "license": "LICENSE.md",
   "dependencies": {
     "express": "^4.18.2",
     "glob": "^10.3.4"
   },
   "devDependencies": {
-    "sass": "^1.32.12"
+    "sass": "^1.32.12",
+    "nodemon": "^2.0.7"
   }
 }
