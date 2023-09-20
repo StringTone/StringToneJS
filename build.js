@@ -1,16 +1,15 @@
-var {glob, Glob, globSync, globStream, globStreamSync} = require('glob');
-var sass = require('sass');
-var fs=require('fs');
-var summary = {};
-let spacer = '                                  ';
+const {globSync} = require('glob'),
+      sass       = require('sass'),
+      fs         = require('fs'),
+      spc        = (str, len = 60) => (str + (((new Array(100)).fill(' ')).join(''))).slice(0, len) + " ==> ";
+let   summary    = {};
 
-const spc = (str, len=40) => {
-    return (str + spacer).substr(0, len) + " ==> ";
-}
-
+//!! CLEANING PUBLIC FOLDER
 console.log('\n\n======================================\nCLEANING PUBLIC FOLDER');
 fs.rmSync('./public', { recursive: true, force: true });
+console.log('    ...done.');
 
+//@@ HTML FILES
 console.log('\n\n======================================\nHTML FILES');
 const htmlfiles = globSync('**/*.html', { ignore: 'node_modules/**' })
 if(htmlfiles.length ) {
@@ -20,14 +19,15 @@ if(htmlfiles.length ) {
     for(htmlFile of htmlfiles) {
         summary.html = summary.html ? summary.html + 1 : 1;
         
-        let htmlFileName = htmlFile.replace(/^.*?\//, '');
+        let htmlFileName = htmlFile.replace(/^.+\//, '');
         fs.copyFileSync(htmlFile, './public/' + htmlFileName);
-        console.log('    ~> ', spc(htmlFileName), './public/' + htmlFileName);
+        console.log('    ~> ', spc(htmlFile), './public/' + htmlFileName);
     }
 }
 
+//## JS FILES
 console.log('\n\n======================================\nJS FILES');
-const jsfiles = globSync('**/*.js', { ignore: 'node_modules/**' })
+const jsfiles = globSync('./src/**/*.js', { ignore: 'node_modules/**' })
 if(jsfiles.length ) {
     console.log('     Located js files :', jsfiles.join(', '));
     fs.mkdirSync('./public/js/', { recursive: true });
@@ -35,34 +35,31 @@ if(jsfiles.length ) {
     for(jsFile of jsfiles) {
         summary.js = summary.js ? summary.js + 1 : 1;
         
-        let jsFileName = jsFile.replace(/^.*?\//, '');
+        let jsFileName = jsFile.replace(/^.+\//, '');
         fs.copyFileSync(jsFile, './public/js/' + jsFileName);
-        console.log('    ~> ', spc(jsFileName), './public/js/' + jsFileName);
+        console.log('    ~> ', spc(jsFile), './public/js/' + jsFileName);
     }
 }
 
-console.log('\n\n======================================\nCSS FILES');
-const scssfiles = globSync('**/*.{sass,scss}', { ignore: 'node_modules/**' })
-if(scssfiles.length ) {
-    console.log('     Located scss files :', scssfiles.join(', '));
+//$$ SASS/SCSS/CSS FILES
+console.log('\n\n======================================\nSASS/SCSS/CSS FILES');
+const sassFiles = globSync('**/*.{sass,scss}', { ignore: 'node_modules/**' })
+if(sassFiles.length ) {
+    console.log('     Located scss files :', sassFiles.join(', '));
     fs.mkdirSync('./public/css/', { recursive: true });
-    
-    for(sassFileName of scssfiles)  {
+
+    for(sassFile of sassFiles) {
         summary.sass = summary.sass ? summary.sass + 1 : 1;
 
-        let sassFileObject = {};
-        sassFile = sassFileName.split('/');
-        sassFileObject.fileName = sassFile.pop();
-        sassFileObject.filePath = sassFile.join('/');
-        sassFileObject.cssFileName = sassFileObject.fileName.replace(/\.scss$/, '.css');
-        sassFileObject.cssOutput = './' + sassFileObject.filePath + '/' + sassFileObject.cssFileName;
-        sassFileObject.compiledCSS = sass.compile('./' + sassFileName, {file:sassFileObject.cssOutput, syntax:'scss'})
-        fs.writeFileSync('./public/css/' + sassFileObject.cssFileName, sassFileObject.compiledCSS.css);
-        // fs.renameSync(sassFileObject.cssOutput, './public/css/' + sassFileObject.cssFileName);
-        console.log('    ~> ', spc(sassFileName), './public/css/' + sassFileName);
+        let sassFileName = sassFile.replace(/^.+\//, '');
+        let compiledCSS  = sass.compile(sassFile, {file : sassFile, syntax : 'scss'});
+            sassFileName = sassFileName.replace(/\.s[ac]ss$/, '.css');
+        fs.writeFileSync('./public/css/' + sassFileName, compiledCSS.css);
+        console.log('    ~> ', spc(sassFile), './public/css/' + sassFileName);
     }
 }
 
+//%% IMAGE FILES
 console.log('\n\n======================================\nIMAGE FILES');
 const images = globSync(['**/*.{png,jpeg,svg,png}'], { ignore: ['node_modules/**', '**/*favicon*'] });
 if(images.length ) {
@@ -72,34 +69,36 @@ if(images.length ) {
     for(image of images) {
         summary.images = summary.images ? summary.images + 1 : 1;
 
-        let imageName = image.replace(/^.*?\//, '');
+        let imageName = image.replace(/^.+\//, '');
         if(!/favicon/i.test(imageName)){
-            fs.copyFileSync(imageName, './public/images/' + imageName);
-            console.log('    ~> ', spc(imageName), './public/images/' + imageName);
+            fs.copyFileSync(image, './public/images/' + imageName);
+            console.log('    ~> ', spc(image), './public/images/' + imageName);
         }
     }
 }
 
-console.log('\n\n======================================\nICON FILES');
+//^^ ICON/FAVICON FILES
+console.log('\n\n======================================\nICON/FAVICON FILES');
 const icons = globSync(['**/*.{png,ico}'], { ignore: 'node_modules/**' });
 if(icons.length ) {
     console.log('    Located icon files :', icons.join(', '));
     fs.mkdirSync('./public/icons/Favicons/', { recursive: true });
 
     for(icon of icons) {
-        let iconName = icon.replace(/^.*?\//, '');
+        let iconName = icon.replace(/^.+\//, '');
         if(/favicon/i.test(iconName)) {
-            fs.copyFileSync(iconName, './public/icons/Favicons/' + iconName);
-            console.log('    ~> ', spc(iconName), './public/icons/Favicons/' + iconName);
             summary.favicons = summary.favicons ? summary.favicons + 1 : 1;
-        }else if(/\.ico$/i.test(iconName)) {
-            fs.copyFileSync(iconName, './public/icons/' + iconName);
-            console.log('    ~> ', spc(iconName), './public/icons/' + iconName);
+            fs.copyFileSync(icon, './public/icons/Favicons/' + iconName);
+            console.log('    ~> ', spc(icon), './public/icons/Favicons/' + iconName);
+        }else{
             summary.icons = summary.icons ? summary.icons + 1 : 1;
+            fs.copyFileSync(icon, './public/icons/' + iconName);
+            console.log('    ~> ', spc(icon), './public/icons/' + iconName);
         }
     }
 }
 
+//&& DOWNLOADABLE FILES
 console.log('\n\n======================================\nDOWNLOADABLE FILES');
 const downloadables = globSync(['**/*.{pdf,doc,docx,xls,xlsx,zip}'], { ignore: 'node_modules/**' });
 if(downloadables.length ) {
@@ -109,12 +108,13 @@ if(downloadables.length ) {
     for(downloadable of downloadables) {
         summary.downloadables = summary.downloadables ? summary.downloadables + 1 : 1;
 
-        let downloadableName = downloadable.replace(/^.*?\//, '');
-        fs.copyFileSync(downloadableName, './public/downloadables/' + downloadableName);
-        console.log('    ~> ', spc(downloadableName), './public/downloadables/' + downloadableName);
+        let downloadableName = downloadable.replace(/^.+\//, '');
+        fs.copyFileSync(downloadable, './public/downloadables/' + downloadableName);
+        console.log('    ~> ', spc(downloadable), './public/downloadables/' + downloadableName);
     }
 }
 
+//** BUILD SUMMARY
 console.log('\n\n======================================\nBUILD SUMMARY');
 console.log('    html          : ', (summary.html          || 0));
 console.log('    js            : ', (summary.js            || 0));
@@ -124,5 +124,12 @@ console.log('    icons         : ');
 console.log('      ⤷ icons     : ', (summary.icons         || 0));
 console.log('      ⤷ favicons  : ', (summary.favicons      || 0));
 console.log('    downloadables : ', (summary.downloadables || 0));
+
+//!! OUTPUT SUMMARY
+console.log('\n\n======================================\nOUTPUT SUMMARY');
+console.log('    ', Object.values(summary).reduce((r,c)=>r+c, 0), 'files copied to ./public/ folder');
+
+//!! STARTING LOCAL SERVER IN PRODUCTION MODE
+console.log('\n\n======================================\nSTARTING LOCAL SERVER IN PRODUCTION MODE');
 
 
