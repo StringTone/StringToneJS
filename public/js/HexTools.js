@@ -2,9 +2,6 @@ class HexTools {
     constructor() {
         return (!HexTools.instance) ? (HexTools.instance = this) : HexTools.instance;
     }
-
-    // Returns eitheran array of hex channel values from a hex string (with or without 
-    // alpha), while stripping leading "#"'s, or null if the hex string is invalid.
     #getHexArray = (hex, includeAlpha = false) => {
         if(Array.isArray(hex)) return hex;
         if(typeof(hex) !== 'string') return [];
@@ -29,7 +26,6 @@ class HexTools {
             else return this.#formatHexArr(hex.slice(0,3));
         }
         let hexArr = (respectAlpha && hex.length < 8) ? this.#getHexArray(hex + "ff") : this.#getHexArray(hex);
-        // if(hexArr.length < 3) return this.#formatHexArr(hex);
         
         let shortHex = "#";
         for(var i=0; i<hexArr.length; i++){

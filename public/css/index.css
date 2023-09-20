@@ -783,7 +783,6 @@ svg #fork {
   background-color: white;
   backface-visibility: hidden;
   border-radius: 200px;
-  transform-style: preserve-3d;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.6);
 }
 

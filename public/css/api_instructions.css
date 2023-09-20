@@ -164,8 +164,8 @@ html, body {
   display: inline-block;
   margin: 0 -2px 0 -8px;
   transform: translate(0, 5px);
-  width: clamp(23px, 0.9191176471vw + 18.5882352941px, 28px);
-  height: clamp(23px, 0.9191176471vw + 18.5882352941px, 28px);
+  width: clamp(23px, (0.9191176471vw + 18.5882352941px), 28px);
+  height: clamp(23px, (0.9191176471vw + 18.5882352941px), 28px);
 }
 .api-dialog-header-indicators {
   line-height: 32px;

@@ -1,12 +1,18 @@
 const isDevMode = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development');
+const isDebugMode = (process.env.DEBUG_MODE && process.env.DEBUG_MODE === 'true');
+if(isDebugMode) {
+    console.log('process.env.DEBUG_MODE: ', isDebugMode);
+    console.log('process.env.NODE_ENV:  ', process.env.NODE_ENV);
+}
 
-const express = require("express");
-const path = require('path');
-const stringTone = require("./src/scripts/StringTone.js");
+const express        = require("express");
+const path           = require('path');
+const stringTone     = require("./src/scripts/StringTone.js");
 const hexConversions = require("./src/scripts/HexConversions.js")
-const hexTools = require("./src/scripts/HexTools.js")
+const hexTools       = require("./src/scripts/HexTools.js")
 
-const sass= require('sass');
+let sass
+if(isDevMode) sass = require('sass');
 
 const app = express()
 
@@ -34,8 +40,14 @@ const supportedFileTypes = {
     svg:  {  mimeType: 'image/svg+xml',    basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'svg'}
 }
 
+app.get(/.*/, (req, res, next) => {
+    console.log(req.path);
+    next();
+});
+
 //** Handle Website Page Requests (NON-API)
 app.get(/^\/(?!api\/)(.*)$/i, async (req, res) => {
+    console.log('NON-api request!');
     reqFullPath = req.path;
     console.log('reqFullPath :', reqFullPath);
     if(req.path == null || req.path === '' || req.path === '/') reqFullPath += 'index.html'
@@ -70,6 +82,8 @@ app.get(/^\/(?!api\/)(.*)$/i, async (req, res) => {
         res.set('Content-Type', supportedFileTypes[reqFileExt].mimeType);
         return res.sendFile(path.join(reqPath, reqFileName + '.' + reqFileExt));
     }else{
+        
+        if(isDebugMode) console.log('Path Elements', '\nreqProtocol: ', reqProtocol, '\nreqRelativePath: ', reqRelativePath, '\nreqPath: ', reqPath, '\nreqFileName: ', reqFileName, '\nreqFileExt: ', reqFileExt)
         res.set('Content-Type', supportedFileTypes[reqFileExt].mimeType);
         return res.sendFile(path.join(supportedFileTypes[reqFileExt].basePath + reqFileName + '.' + reqFileExt));
     }
@@ -141,7 +155,7 @@ const webFormats = {
 
 const setWebFormat = (value, colorFormat) => {
     if(value == null || /^hexa?$/i.test(colorFormat) || (typeof(value) !== 'string' && !Array.isArray(value))) return value;
-    value = value?.split?.(',')??value;
+    value = (!Array.isArray(value)) ? value.split(',') : value;
     return !Array.isArray(value) 
            ? value 
            : colorFormat + "(" + value.map((v,i)=>v + webFormats[colorFormat].units[i]).join(', ') + ")";
@@ -156,6 +170,7 @@ let summaryOutput, formattedReturnString;
 // });
 
 app.get('/api/(:stringToConvert([\\S\\s]+))?', (req, res, next) => {
+    console.log('API request!');
     // User is requesting the API docs (passed in only the /api path)
     console.log('req.path :', req.path);
     if(/^\/api\/?$/i.test(req.path)) {
