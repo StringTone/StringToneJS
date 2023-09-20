@@ -52,7 +52,6 @@ function compileSCSS(inputFile, outputFile) {
     // function that iterates all the scss files within a directory and compiles them to css
     function compileDirectory(dirPath='') {
         var sg = new Glob(dirPath + '**/*.scss', {absolute:false, root:'./src/', ignore:['**/node_modules/**', '**/vendor/**']});
-        console.log('sg :', sg);
 
         for(sassFileName of sg)  {
             console.log('sassFileName :', sassFileName);
@@ -71,7 +70,7 @@ function compileSCSS(inputFile, outputFile) {
             }
         }
     }
-    compileDirectory(".")
+    
     
 
 

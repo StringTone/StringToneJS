@@ -18,20 +18,20 @@ app.listen(3000, () => {
 const baseSourcePath = (isDevMode) ? 'src/' : 'public/';
 
 const supportedFileTypes = {
-    css:  {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         },
-    scss: {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         },
-    sass: {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         },
-    js:   {  mimeType: 'text/javascript',  basePath: path.join(__dirname, baseSourcePath + '/js/'),          },
-    zip:  {  mimeType: 'application/zip',  basePath: path.join(__dirname, baseSourcePath + '/dowloads'),     },
-    htm:  {  mimeType: 'text/html',        basePath: path.join(__dirname, baseSourcePath + '/'),             },
-    html: {  mimeType: 'text/html',        basePath: path.join(__dirname, baseSourcePath + '/'),             },
-    json: {  mimeType: 'application/json', basePath: path.join(__dirname, baseSourcePath + '/json'),         },
-    ico:  {  mimeType: 'image/x-icon',     basePath: path.join(__dirname, baseSourcePath + '/images/icons'), },
-    png:  {  mimeType: 'image/png',        basePath: path.join(__dirname, baseSourcePath + '/images'),       },
-    jpg:  {  mimeType: 'image/jpeg',       basePath: path.join(__dirname, baseSourcePath + '/images'),       },
-    jpeg: {  mimeType: 'image/jpeg',       basePath: path.join(__dirname, baseSourcePath + '/images'),       },
-    gif:  {  mimeType: 'image/gif',        basePath: path.join(__dirname, baseSourcePath + '/images'),       },
-    svg:  {  mimeType: 'image/svg+xml',    basePath: path.join(__dirname, baseSourcePath + '/images'),       }
+    css:  {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         extension: 'css'},
+    scss: {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         extension: 'css'},
+    sass: {  mimeType: 'text/css',         basePath: path.join(__dirname, baseSourcePath + '/css/'),         extension: 'css'},
+    js:   {  mimeType: 'text/javascript',  basePath: path.join(__dirname, baseSourcePath + '/js/'),          extension: 'js'},
+    zip:  {  mimeType: 'application/zip',  basePath: path.join(__dirname, baseSourcePath + '/dowloads'),     extension: 'zip'},
+    htm:  {  mimeType: 'text/html',        basePath: path.join(__dirname, baseSourcePath + '/'),             extension: 'html'},
+    html: {  mimeType: 'text/html',        basePath: path.join(__dirname, baseSourcePath + '/'),             extension: 'html'},
+    json: {  mimeType: 'application/json', basePath: path.join(__dirname, baseSourcePath + '/json'),         extension: 'json'},
+    ico:  {  mimeType: 'image/x-icon',     basePath: path.join(__dirname, baseSourcePath + '/images/icons'), extension: 'ico'},
+    png:  {  mimeType: 'image/png',        basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'png'},
+    jpg:  {  mimeType: 'image/jpeg',       basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'jpg'},
+    jpeg: {  mimeType: 'image/jpeg',       basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'jpg'},
+    gif:  {  mimeType: 'image/gif',        basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'gif'},
+    svg:  {  mimeType: 'image/svg+xml',    basePath: path.join(__dirname, baseSourcePath + '/images'),       extension: 'svg'}
 }
 
 //** Handle Website Page Requests (NON-API)
@@ -46,7 +46,7 @@ app.get(/^\/(?!api\/)(.*)$/i, async (req, res) => {
         reqFileExt = 'html';
         reqPath = 'components/' + reqFileName + reqPath;
     }
-    
+    if(!isDevMode) reqFileExt = supportedFileTypes[reqFileExt].extension;
     reqPath = (isDevMode) ? path.join(__dirname, baseSourcePath + reqPath) : path.join(__dirname, supportedFileTypes[reqFileExt].basePath + reqPath); 
     
     if(isDevMode){
@@ -71,7 +71,7 @@ app.get(/^\/(?!api\/)(.*)$/i, async (req, res) => {
         return res.sendFile(path.join(reqPath, reqFileName + '.' + reqFileExt));
     }else{
         res.set('Content-Type', supportedFileTypes[reqFileExt].mimeType);
-        return res.sendFile(path.join(__dirname, supportedFileTypes[reqFileExt].basePath + reqFileName + '.' + reqFileExt));
+        return res.sendFile(path.join(supportedFileTypes[reqFileExt].basePath + reqFileName + '.' + reqFileExt));
     }
 })
 

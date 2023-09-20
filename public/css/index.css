@@ -272,9 +272,6 @@ article.homepage-content .input-methods-bubble-field {
 article.homepage-content .input-methods-bubble-field:focus, article.homepage-content .input-methods-bubble-field:active, article.homepage-content .input-methods-bubble-field:target, article.homepage-content .input-methods-bubble-field:not(:placeholder-shown) {
   box-shadow: 0 0 10px color-mix(in srgb, var(--hue), #FFF 0%);
 }
-article.homepage-content .input-methods-bubble * {
-  transform-style: preserve-3d;
-}
 article.homepage-content .input-methods .clear-tool {
   width: 64px;
   height: 42px;
@@ -743,6 +740,17 @@ svg #fork {
     opacity: 1;
   }
 }
+.api {
+  content: "";
+  --bg: var(--bg1);
+  --hue-l: hsla(var(--bg), 100%, 50%, 1);
+  --hue-d: hsla(var(--bg), 100%, 30%, 1);
+  --hue-lett1: hsla(calc(var(--bg) + 50), 100%, 70%, 1);
+  --hue-lett2: hsla(calc(var(--bg) - 50), 100%, 70%, 1);
+  --hue: inherit;
+  height: 100%;
+}
+
 .input-methods-bubble-input {
   position: absolute;
   width: 100%;
@@ -770,8 +778,7 @@ svg #fork {
 .input-methods-bubble-input-api {
   position: absolute;
   height: content-min;
-  width: 100%;
-  color: #03446a;
+  color: #877f75;
   text-align: center;
   background-color: white;
   backface-visibility: hidden;
@@ -786,27 +793,28 @@ svg #fork {
 }
 
 .input-methods-bubble-input-api {
-  background: #03446a;
+  background: #877f75;
   color: white;
   transform: rotatex(180deg);
   font: 15px system-ui;
-  padding: 50px 0 50px 50px;
   margin: 0 0 20vh 0;
   border-radius: 50px;
   text-align: left;
-  height: 80vh;
+  height: 90vh;
+  width: 90vw;
+  padding: 10px 25px;
 }
 .input-methods-bubble-input-api .closer-label {
   position: absolute;
-  right: 0px;
-  top: -50px;
+  left: -35px;
+  margin-top: -15px;
   z-index: 100;
   display: none;
 }
 .input-methods-bubble-input-api .scroller {
-  max-height: calc(80vh - 100px);
-  overflow: auto;
-  padding: 15px 50px 15px 15px;
+  max-height: 100%;
+  overflow-y: auto;
+  color: #000;
 }
 .input-methods-bubble-input-api .api::after {
   content: "";
@@ -817,8 +825,24 @@ svg #fork {
   top: 0;
   left: 0;
   z-index: 7;
-  box-shadow: inset 0 -10px 10px #03446A, inset 0 -5px 5px #03446A, inset 0 10px 10px #03446A, inset 0 5px 5px #03446A;
+  box-shadow: inset 0 -10px 10px #877F75, inset 0 -5px 5px #877F75, inset 0 10px 10px #877F75, inset 0 5px 5px #877F75;
   pointer-events: none;
+}
+.input-methods-bubble-input-api::before {
+  content: "";
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: -5vh;
+  left: -6vw;
+  width: 102vw;
+  height: 102vh;
+  backdrop-filter: saturate(0) blur(5px);
+  animation-play-state: paused;
 }
 
 @keyframes flipToB {
